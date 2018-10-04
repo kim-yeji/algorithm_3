@@ -37,6 +37,8 @@ public class Sorting {
 			mergeSort(0, paramArr.length-1, paramArr);
 		} else if("quick".equals(sort)) {
 			quickSort( paramArr,0, paramArr.length-1);
+		}else if("randomQuick".equals(sort)) {
+			quickSort_ranPivot( paramArr,0, paramArr.length-1);
 		}
 	}
 
@@ -46,7 +48,7 @@ public class Sorting {
 
 		int mid;
 		if (left < right) {
-			if(right - left < 8) {
+			if(right - left < 8) { //서브배열의 길이가 8 이하일 때
 				insertionSort(left, right, arr);
 				count++;
 //				System.out.println("- 삽입정렬 -");
@@ -119,20 +121,52 @@ public class Sorting {
 	public void quickSort(int arr[], int left, int right) {
 	 
 	    if (left < right) {
-//	        int pivotNewIndex = partition(arr, left, right);
-	    	int ranPivot = randomize_partition(arr, left, right);
-//	        quickSort(arr, left, pivotNewIndex - 1);
-//	        quickSort(arr, pivotNewIndex + 1, right);
-	        quickSort(arr, left, ranPivot - 1);
-	        quickSort(arr, ranPivot + 1, right);
+	        int pivotNewIndex = partition(arr, left, right);
+	        quickSort(arr, left, pivotNewIndex - 1);
+	        quickSort(arr, pivotNewIndex + 1, right);
 	    }
 	}
+	
+	int partition(int[] data, int left, int right){ 
+		
+		int pivot = data[right];
+		int low = left+1; 
+		int high = right; 
+		while(low <= high) { 
+			while(pivot >= data[low] && low <= right) { 
+				if(low == data.length-1) { break; } 
+				low++; 
+				} 
+			while(pivot <= data[high] && high >= (left+1)) 
+			{ high--; } 
+			if(low <= high) { 
+				Swap(data, low, high); 
+			} 
+			if(low == data.length-1) { break; } 
+			} 
+		Swap(data, left, high); 
+		
+		count++;
+		return high; 
+		}
+	
 	
 	void Swap(int[] data, int idx1, int idx2){ 
 		int temp = data[idx1]; 
 		data[idx1] = data[idx2]; 
 		data[idx2] = temp; 
 	}
+	
+	
+	public void quickSort_ranPivot(int arr[], int left, int right) {
+		 
+	    if (left < right) {
+	    	int ranPivot = randomize_partition(arr, left, right);
+	    	quickSort_ranPivot(arr, left, ranPivot - 1);
+	    	quickSort_ranPivot(arr, ranPivot + 1, right);
+	    }
+	}
+	
 	
 	int randomize_partition(int[] data, int left, int right){ 
 		
@@ -157,6 +191,7 @@ public class Sorting {
 		count++;
 		return high; 
 		}
-
+	
+	
 	 
 }
