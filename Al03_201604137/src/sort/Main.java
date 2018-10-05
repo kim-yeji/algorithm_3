@@ -23,12 +23,12 @@ public class Main {
 			sort = new Sorting(list);
 			sort.sorting("quick");	//퀵정렬
 			sort.printCount();
-//			sort.sortingPrint2();
 			
 			System.out.println("============== (random) quick " + cnt + "개 테스트 ===============");
 			sort = new Sorting(list);
 			sort.sorting("randomQuick");	//퀵정렬
 			sort.printCount();
+//			sort.sortingPrint2();
 			
 			
 			cnt = "1000";
